@@ -104,7 +104,7 @@ public class SMPPSession extends AbstractSession implements ClientSession {
 	private OutputStream out;
 	
 	private PDUReaderWorker pduReaderWorker;
-	private final ResponseHandler responseHandler = new ResponseHandlerImpl();
+	protected ResponseHandler responseHandler = new ResponseHandlerImpl();
 	private MessageReceiverListener messageReceiverListener;
     private BoundSessionStateListener sessionStateListener = new BoundSessionStateListener();
     private SMPPSessionContext sessionContext = new SMPPSessionContext(this, sessionStateListener);
@@ -435,6 +435,10 @@ public class SMPPSession extends AbstractSession implements ClientSession {
 			MessageReceiverListener messageReceiverListener) {
 		this.messageReceiverListener = messageReceiverListener;
 	}
+
+  protected void setResponseHandler(final ResponseHandler responseHandler){
+    this.responseHandler = responseHandler;
+  }
 	
 	@Override
 	protected Connection connection() {
@@ -489,7 +493,7 @@ public class SMPPSession extends AbstractSession implements ClientSession {
 	    }
 	}
 	
-	private class ResponseHandlerImpl implements ResponseHandler {
+	class ResponseHandlerImpl implements ResponseHandler {
 		
 		public void processDeliverSm(DeliverSm deliverSm) throws ProcessRequestException {
 			try {
