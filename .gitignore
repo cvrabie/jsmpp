@@ -11,5 +11,8 @@ syntax:glob
 .project
 .classpath
 
+# Idea Project Files
+*.iml
+
 version.properties
 git.properties
